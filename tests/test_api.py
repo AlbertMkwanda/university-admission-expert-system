@@ -17,6 +17,8 @@ class AdmissionApiTests(unittest.TestCase):
         self.assertIn(b"University of Malawi", home.data)
         self.assertIn(b"https://dmisjbu.ac.mw/", home.data)
         self.assertNotIn(b"Search by programme", home.data)
+        self.assertIn(b"dashboard-sidebar", home.data)
+        self.assertIn(b"Analyze eligibility", home.data)
         self.assertEqual(self.client.get("/health").json, {"status": "ok"})
 
     def test_evaluate_returns_source_attributed_undergraduate_matches(self):

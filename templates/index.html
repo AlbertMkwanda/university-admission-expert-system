@@ -8,20 +8,116 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <style>
-    :root{color:#173052;background:#f1f6fc;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}body{margin:0;background:linear-gradient(180deg,#e9f2fc 0,#f6f9fd 28rem,#f6f9fd 100%);min-height:100vh}main{max-width:1120px}.app-card{overflow:hidden;border:1px solid #d6e3f2;border-radius:1.5rem;background:#fff}.hero-banner{background:linear-gradient(120deg,#102f5e,#176cc1 65%,#4b9ae5);color:#fff}.hero-banner h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.04em;line-height:1.05}.hero-banner p{max-width:65ch;color:#e5f1ff}.eyebrow{font-size:.76rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#b9dcff}.notice{border-color:#b9d7f6;background:#f0f7ff;color:#18385e}.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.5rem 1rem}.field{margin:.75rem 0}label,.form-label{display:block;margin-bottom:.4rem;font-weight:700;color:#19395f}select,input,button{font:inherit}input[type=checkbox]{width:auto;margin-right:.45rem}.form-control,.form-select{border-color:#c5d5e8;border-radius:.7rem;padding:.7rem .85rem}.form-control:focus,.form-select:focus{border-color:#4b9ae5;box-shadow:0 0 0 .25rem #4b9ae533}.btn-primary{--bs-btn-bg:#145da8;--bs-btn-border-color:#145da8;--bs-btn-hover-bg:#0d4c8d;--bs-btn-hover-border-color:#0d4c8d}.btn-outline-primary{--bs-btn-color:#145da8;--bs-btn-border-color:#9bbce0;--bs-btn-hover-bg:#145da8;--bs-btn-hover-border-color:#145da8}.results{margin-top:1.5rem;padding:1rem;border:1px solid #c9def5;border-radius:1rem;background:#eff6ff}.results[hidden],.level-panel[hidden]{display:none}.error{background:#fff1f0;color:#7e2119}.result-title{font-size:1.25rem;font-weight:800}.program-result{height:100%;padding:1rem;border:1px solid #d9e6f4;border-radius:1rem;background:#fff;box-shadow:0 5px 16px #163b6410}.program-result h3{font-size:1.05rem;font-weight:750;color:#183d68}.program-result ul{padding-left:1.4rem}.status{font-weight:800}.field-note,footer{color:#60748c;font-size:.92rem}.recommendations{margin-top:1rem}.subject-row{display:grid;grid-template-columns:minmax(0,2fr) minmax(6rem,1fr) auto;gap:.5rem;align-items:center;margin:.5rem 0}.subject-row button{margin:0}.checkbox-label{display:flex;align-items:flex-start;gap:.35rem;font-weight:500}.checkbox-label input{margin-top:.35rem;flex:0 0 auto}.finder-panel{border:1px solid #d7e5f5;border-radius:1.1rem;background:linear-gradient(145deg,#f7fbff,#edf5ff)}a{color:#145da8}footer{margin-top:1.5rem}
+    :root{color:#173052;background:#edf4fc;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+    body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 92% 8%,#dcecff 0,transparent 28rem),linear-gradient(145deg,#f1f6fc,#e8f1fb)}
+    .dashboard-frame{max-width:1600px}
+    .dashboard-shell{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:calc(100vh - 2rem);overflow:hidden;border:1px solid #dce7f3;border-radius:1.7rem;background:#fff;box-shadow:0 24px 70px #19385e16}
+    .dashboard-sidebar{display:flex;flex-direction:column;padding:1.5rem 1rem;border-right:1px solid #e6edf6;background:linear-gradient(180deg,#f8fbff,#f1f6fd)}
+    .brand-lockup{display:flex;align-items:center;gap:.75rem;padding:.25rem .5rem 1.5rem;color:#173052;text-decoration:none}
+    .brand-mark{display:grid;width:2.7rem;height:2.7rem;place-items:center;border-radius:.9rem;background:linear-gradient(145deg,#8ec1ff,#347fc7);color:#fff;font-size:1.25rem;font-weight:850;box-shadow:0 6px 15px #3e81c333}
+    .brand-lockup strong{font-size:.83rem;letter-spacing:.055em;line-height:1.2}
+    .sidebar-label{margin:1rem .7rem .45rem;color:#8294aa;font-size:.68rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+    .dashboard-nav{display:grid;gap:.3rem}
+    .dashboard-nav a{display:flex;align-items:center;gap:.7rem;padding:.72rem .75rem;border-radius:.8rem;color:#5a6e84;font-size:.9rem;font-weight:650;text-decoration:none}
+    .dashboard-nav a:hover,.dashboard-nav a.active{background:#e5f1ff;color:#145da8}
+    .nav-icon{display:inline-grid;width:1.5rem;height:1.5rem;place-items:center;border-radius:.5rem;background:#e8f1fb;color:#4b8acb;font-size:.75rem;font-weight:850}
+    .dashboard-nav a.active .nav-icon{background:#d2e8ff;color:#145da8}
+    .sidebar-footnote{margin-top:auto;padding:1rem .75rem .4rem;color:#71849a;font-size:.78rem;line-height:1.55}
+    .dashboard-content{min-width:0;padding:clamp(1.15rem,3vw,2.7rem)}
+    .dashboard-header{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;padding:.25rem 0 1.4rem;border-bottom:1px solid #edf1f7}
+    .eyebrow{margin-bottom:.55rem;color:#558ac5;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+    .dashboard-header h1{margin:0;color:#182f4b;font-size:clamp(1.7rem,3.2vw,2.65rem);font-weight:760;letter-spacing:-.04em}
+    .dashboard-header p{margin:.45rem 0 0;max-width:62ch;color:#6b7d92}
+    .header-action{display:flex;flex:0 0 auto;align-items:center;gap:.75rem}
+    .active-pill{border:1px solid #c7ead7;background:#effaf3;color:#25864e}
+    .dashboard-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;margin:1.15rem 0}
+    .stat-card{display:flex;min-height:5.7rem;flex-direction:column;justify-content:center;padding:.85rem 1rem;border:1px solid #e4ecf5;border-radius:1rem;background:#fff;box-shadow:0 4px 14px #19385e08}
+    .stat-card span{color:#71849a;font-size:.76rem;font-weight:650}
+    .stat-card strong{margin-top:.12rem;color:#1b416d;font-size:1.05rem;font-weight:780}
+    .stat-card small{color:#8190a3;font-size:.72rem}
+    .notice{border-color:#c9e0fa;background:#f2f8ff;color:#244768}
+    .dashboard-columns{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:1.2rem;align-items:start}
+    .dashboard-primary,.dashboard-rail{min-width:0}
+    .dashboard-rail{display:grid;gap:1rem}
+    .rail-card{padding:1.1rem;border:1px solid #e2ebf5;border-radius:1.1rem;background:#fff;box-shadow:0 5px 18px #19385e08}
+    .rail-card h2{margin:0 0 .8rem;color:#1b416d;font-size:1rem;font-weight:760}
+    .step-list{display:grid;gap:.8rem;margin:0;padding:0;list-style:none}
+    .step-list li{display:grid;grid-template-columns:1.7rem 1fr;gap:.55rem;align-items:start;color:#62768d;font-size:.82rem;line-height:1.45}
+    .step-number{display:grid;width:1.6rem;height:1.6rem;place-items:center;border-radius:.55rem;background:#e9f3ff;color:#246eb5;font-size:.75rem;font-weight:800}
+    .dashboard-card{border:1px solid #e0eaf5;border-radius:1.2rem;background:#fff;box-shadow:0 5px 20px #19385e08}
+    .finder-panel{margin-bottom:1.1rem;padding:1.15rem;border-color:#dbe8f6;background:linear-gradient(145deg,#f8fbff,#eff6ff)}
+    .finder-panel h2{color:#19395f;font-weight:760}
+    .fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.5rem 1rem}
+    .field{margin:.75rem 0}
+    label,.form-label{display:block;margin-bottom:.4rem;color:#19395f;font-weight:700}
+    select,input,button{font:inherit}
+    input[type=checkbox]{width:auto;margin-right:.45rem}
+    .form-control,.form-select{border-color:#c5d5e8;border-radius:.7rem;padding:.7rem .85rem}
+    .form-control:focus,.form-select:focus{border-color:#4b9ae5;box-shadow:0 0 0 .25rem #4b9ae533}
+    .btn-primary{--bs-btn-bg:#145da8;--bs-btn-border-color:#145da8;--bs-btn-hover-bg:#0d4c8d;--bs-btn-hover-border-color:#0d4c8d}
+    .btn-outline-primary{--bs-btn-color:#145da8;--bs-btn-border-color:#9bbce0;--bs-btn-hover-bg:#145da8;--bs-btn-hover-border-color:#145da8}
+    .results{margin-top:1.2rem;padding:1rem;border:1px solid #c9def5;border-radius:1rem;background:#eff6ff;scroll-margin-top:1rem}
+    .results[hidden],.level-panel[hidden]{display:none}
+    .error{background:#fff1f0;color:#7e2119}
+    .result-title{font-size:1.25rem;font-weight:800}
+    .program-result{height:100%;padding:1rem;border:1px solid #d9e6f4;border-radius:1rem;background:#fff;box-shadow:0 5px 16px #163b6410}
+    .program-result h3{font-size:1.05rem;font-weight:750;color:#183d68}
+    .program-result ul{padding-left:1.4rem}
+    .status{font-weight:800}
+    .field-note,footer{color:#60748c;font-size:.92rem}
+    .recommendations{margin-top:1rem}
+    .subject-row{display:grid;grid-template-columns:minmax(0,2fr) minmax(6rem,1fr) auto;gap:.5rem;align-items:center;margin:.5rem 0}
+    .subject-row button{margin:0}
+    .checkbox-label{display:flex;align-items:flex-start;gap:.35rem;font-weight:500}
+    .checkbox-label input{margin-top:.35rem;flex:0 0 auto}
+    a{color:#145da8}
+    footer{margin-top:1.5rem;padding:0 .25rem}
+    @media(max-width:1100px){.dashboard-shell{grid-template-columns:195px minmax(0,1fr)}.dashboard-columns{grid-template-columns:minmax(0,1fr) 230px}}
+    @media(max-width:900px){.dashboard-shell{grid-template-columns:1fr}.dashboard-sidebar{min-height:0;padding:.75rem 1rem;border-right:0;border-bottom:1px solid #e6edf6}.brand-lockup{padding:.2rem .4rem .8rem}.sidebar-label,.sidebar-footnote{display:none}.dashboard-nav{display:flex;overflow-x:auto;gap:.35rem}.dashboard-nav a{flex:0 0 auto;padding:.58rem .7rem}.dashboard-columns{grid-template-columns:1fr}.dashboard-rail{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:600px){.dashboard-frame{padding:.5rem!important}.dashboard-shell{min-height:calc(100vh - 1rem);border-radius:1.2rem}.dashboard-content{padding:1rem .85rem 1.2rem}.dashboard-header{align-items:flex-start;flex-direction:column;gap:.9rem}.header-action{width:100%;justify-content:space-between}.dashboard-stats{grid-template-columns:repeat(3,minmax(125px,1fr));overflow-x:auto;padding-bottom:.2rem}.stat-card{min-height:5rem;padding:.7rem}.dashboard-rail{grid-template-columns:1fr}.subject-row{grid-template-columns:minmax(0,1fr) minmax(4.5rem,.45fr) auto;gap:.35rem}}
   </style>
 </head>
 <body>
-  <main class="container py-4 py-lg-5">
-    <section class="app-card shadow-lg p-3 p-md-5" aria-labelledby="page-title">
-      <header class="hero-banner rounded-4 p-4 p-md-5 mb-4">
-        <p class="eyebrow">Malawi · university admissions</p>
-        <h1 id="page-title">University Admission Expert System</h1>
-        <p class="mb-0">Choose a discipline or faculty to get course suggestions and see which universities offer them. You can then check your profile against published entry rules where available.</p>
-      </header>
-      <p class="alert alert-info notice"><strong>Guidance only:</strong> This is not an admission decision. Confirm current requirements, accreditation, selection, and open intakes with each institution.</p>
+  <main class="container-fluid dashboard-frame py-3 py-lg-4">
+    <div class="dashboard-shell">
+      <aside class="dashboard-sidebar" aria-label="Dashboard navigation">
+        <a class="brand-lockup" href="#overview">
+          <span class="brand-mark" aria-hidden="true">U</span>
+          <strong>ADMISSION<br>EXPERT SYSTEM</strong>
+        </a>
+        <p class="sidebar-label">Workspace</p>
+        <nav class="dashboard-nav" aria-label="Main navigation">
+          <a class="active" href="#overview" aria-current="page"><span class="nav-icon" aria-hidden="true">01</span>Overview</a>
+          <a href="#course-finder"><span class="nav-icon" aria-hidden="true">02</span>Course finder</a>
+          <a href="#admission-form"><span class="nav-icon" aria-hidden="true">03</span>Eligibility check</a>
+          <a href="#institution-notes"><span class="nav-icon" aria-hidden="true">04</span>Sources &amp; guidance</a>
+        </nav>
+        <p class="sidebar-footnote">Malawi university admissions guidance<br>For planning only — confirm with each institution.</p>
+      </aside>
 
-      <section class="finder-panel p-3 p-md-4 my-4" aria-labelledby="finder-title">
+      <section class="dashboard-content" aria-labelledby="page-title">
+        <header class="dashboard-header" id="overview">
+          <div>
+            <p class="eyebrow">Malawi · student workspace</p>
+            <h1 id="page-title">Welcome to your admissions dashboard</h1>
+            <p>Find courses by discipline, compare institutions, and check your profile against published entry rules.</p>
+          </div>
+          <div class="header-action">
+            <span class="badge rounded-pill active-pill px-3 py-2">Guidance only</span>
+            <button class="btn btn-primary" type="submit" form="admission-form">Analyze eligibility <span aria-hidden="true">→</span></button>
+          </div>
+        </header>
+
+        <section class="dashboard-stats" aria-label="System overview">
+          <article class="stat-card"><span>Source-linked listings</span><strong>{{ policy.programs|length }} courses</strong><small>Grouped by study discipline</small></article>
+          <article class="stat-card"><span>Study levels</span><strong>Undergraduate + Master's</strong><small>Explore either pathway</small></article>
+          <article class="stat-card"><span>Eligibility analysis</span><strong>Verified rules only</strong><small>Unverified listings are never guessed</small></article>
+        </section>
+        <p class="alert alert-info notice mb-3"><strong>Guidance only:</strong> This is not an admission decision. Confirm current requirements, accreditation, selection, and open intakes with each institution.</p>
+
+        <div class="dashboard-columns">
+          <div class="dashboard-primary">
+      <section id="course-finder" class="finder-panel dashboard-card" aria-labelledby="finder-title">
         <div class="row g-3 align-items-end">
           <div class="col-12 col-md-7">
             <label for="discipline-select" class="form-label">What do you want to study?</label>
@@ -50,19 +146,9 @@
         </div>
         <div id="recommendations" class="row g-3 recommendations"></div>
         <button id="recommendations-more" type="button" class="btn btn-outline-primary mt-3" hidden>Show more suggestions</button>
-        {% if policy.additional_institutions %}
-        <aside class="mt-4" aria-label="Institution catalogue availability">
-          {% for institution in policy.additional_institutions %}
-          <div class="alert alert-primary mb-0">
-            <strong>{{ institution.name }}:</strong> {{ institution.note }}
-            <a href="{{ institution.catalogue_url }}" target="_blank" rel="noopener noreferrer">Visit official site</a>
-          </div>
-          {% endfor %}
-        </aside>
-        {% endif %}
       </section>
 
-      <form id="admission-form" class="pt-3 border-top">
+      <form id="admission-form" class="dashboard-card p-3 p-md-4 mb-3">
         <h2 class="h3 mb-3">Check entry eligibility</h2>
         <p class="field-note">Select a discipline above first. The checker only makes eligibility comparisons for programmes with published rules verified in this project.</p>
         <div class="field">
@@ -170,16 +256,42 @@
         <button type="submit" class="btn btn-primary btn-lg">Check eligibility for this discipline</button>
       </form>
 
-      <section id="results" class="results" aria-live="polite" hidden>
+      <section id="results" class="results" aria-live="polite" tabindex="-1" hidden>
         <p class="result-title" id="decision"></p>
         <p id="result-summary"></p>
         <div id="program-results"></div>
         <p id="disclaimer"></p>
       </section>
+          </div>
+          <aside class="dashboard-rail" id="institution-notes" aria-label="How to use the admission checker">
+            <section class="rail-card">
+              <h2>Your next steps</h2>
+              <ol class="step-list">
+                <li><span class="step-number">1</span><span>Choose a study discipline to see matching courses and their universities.</span></li>
+                <li><span class="step-number">2</span><span>Enter your MSCE grades or postgraduate qualification details.</span></li>
+                <li><span class="step-number">3</span><span>Use the visible analysis button to compare against published rules.</span></li>
+              </ol>
+            </section>
+            {% if policy.additional_institutions %}
+            {% for institution in policy.additional_institutions %}
+            <section class="rail-card">
+              <h2>{{ institution.name }}</h2>
+              <p class="field-note">{{ institution.note }}</p>
+              <a href="{{ institution.catalogue_url }}" target="_blank" rel="noopener noreferrer">Visit official site</a>
+            </section>
+            {% endfor %}
+            {% endif %}
+            <section class="rail-card">
+              <h2>Privacy &amp; sources</h2>
+              <p class="field-note mb-0">Eligibility checks run in your browser. Candidate data is not sent to the API or stored.</p>
+            </section>
+          </aside>
+        </div>
       <footer>
         Course suggestions are grouped by discipline and show their source institution. Eligibility checks run locally in the browser; no candidate data is stored or sent to the API.
       </footer>
-    </section>
+      </section>
+    </div>
   </main>
   <script>
     const policy={{ policy|tojson }};
@@ -345,6 +457,12 @@
       return "More information is needed";
     }
 
+    function revealResults(){
+      results.hidden=false;
+      results.focus({preventScroll:true});
+      results.scrollIntoView({behavior:"instant",block:"start"});
+    }
+
     function renderPrograms(programs,levelValue){
       const container=document.querySelector("#program-results");
       container.replaceChildren();
@@ -485,12 +603,14 @@
           :`${unverifiedCount?`${unverifiedCount} course listings are available`:"No course listings are available"} for ${candidate.discipline}, but their entry rules are not verified in this checker.`;
         renderPrograms(programs,candidate.level);
         document.querySelector("#disclaimer").textContent=candidate.level==="postgraduate"?`${policy.postgraduate.note} ${disclaimer}`:disclaimer;
+        revealResults();
       }catch(error){
         results.hidden=false;results.classList.add("error");
         document.querySelector("#decision").textContent=`Unable to evaluate this profile: ${error.message}`;
         document.querySelector("#result-summary").textContent="";
         document.querySelector("#program-results").replaceChildren();
         document.querySelector("#disclaimer").textContent="";
+        revealResults();
       }
     });
   </script>
