@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Verification plan for the admission expert system.">
+  <title>Testing | Admission Expert System</title>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <header>
+    <a href="index.html">ADMISSION RULES · ALBERT MKWANDA</a>
+    <nav aria-label="Main navigation"><a href="index.html">Overview</a><a href="methodology.html">Method</a><a href="results.html" aria-current="page">Testing</a></nav>
+  </header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Testing and verification</p>
+      <h1>Test the rules and the running service.</h1>
+      <p>The automated suite covers source-backed undergraduate and postgraduate rules, catalogue-only results, discipline filtering, MSCE grade boundaries, incomplete profiles, GPA validation, API behavior, and a live Waitress request. Run the suite locally for the current result; test outcomes are not evidence that an institution will admit an applicant.</p>
+    </section>
+    <section class="grid">
+      <article><h2>Unit</h2><p>MSCE 1–9 and credit thresholds, programme-specific subject rules, discipline validation, alternative postgraduate routes, unknown classifications, and invalid profiles.</p></article>
+      <article><h2>Integration</h2><p>HTML and health routes, source-attributed matches for both levels, discipline-filtered results, invalid JSON, unsupported content type, and explicit API errors.</p></article>
+      <article><h2>System</h2><p>Start Waitress as a subprocess, wait for readiness, submit a real HTTP request, verify the programme-level result, and stop the process.</p></article>
+    </section>
+    <section class="panel"><h2>Run the checks</h2><p>From the project directory run <code>py -m unittest discover -s tests -v</code>. See the project README for setup instructions.</p><p><strong>Scope:</strong> Passing tests verify implementation behavior and fixture rules, not applicant selection or the future availability of an intake.</p></section>
+  </main>
+  <footer>Albert Mkwanda · Serial 01 · <a href="https://github.com/AlbertMkwanda/university-admission-expert-system">Repository</a></footer>
+</body>
+</html>

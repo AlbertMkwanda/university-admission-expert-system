@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Admission expert-system rules, validation, and limitations.">
+  <title>Method | Admission Expert System</title>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <header>
+    <a href="index.html">ADMISSION RULES · ALBERT MKWANDA</a>
+    <nav aria-label="Main navigation"><a href="index.html">Overview</a><a href="methodology.html" aria-current="page">Method</a><a href="results.html">Testing</a></nav>
+  </header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Methodology</p>
+      <h1>Policy in. Explanation out.</h1>
+      <p>The browser evaluates profiles locally against the source-attributed catalogue embedded when the page loads. The JSON API uses the same Python policy. Undergraduate checks count MSCE grades 1–6 as credits, enforce subject combinations and apply stricter subject-grade limits only where stated by the programme source. Missing grades are not silently treated as failures unless the applicant confirms the full result set is entered.</p>
+      <p>For postgraduate programmes, each documented admission route is evaluated independently. A programme is marked eligible if at least one route is met, not eligible if all routes fail, and more information needed if any route could still be met with missing information. GPA is collected on a 0–5 scale but is informational only; no GPA-to-classification conversion is inferred.</p>
+      <p>Students first choose a discipline or faculty and may narrow suggestions by degree level; the interface does not present the entire catalogue as an unrestricted browse list. Listings without verified entry criteria are marked as not assessed; they are never treated as eligible or ineligible. Catalogue coverage is partial and is not a substitute for checking current NCHE accreditation and institutional admissions information. DMI St. John the Baptist University is linked, but its supplied official domain could not be resolved during verification, so its programmes are not guessed.</p>
+    </section>
+    <section class="grid">
+      <article><h2>1 · Validate</h2><p>Accept only MSCE grades 1–9 and postgraduate profile values within the declared range. Reject malformed input with an explicit error.</p></article>
+      <article><h2>2 · Match</h2><p>Compare the profile with the selected level's official programme rules, including alternative entry paths and experience requirements.</p></article>
+      <article><h2>3 · Explain</h2><p>Return a status and rule trace for each programme, together with the programme page and intake source.</p></article>
+    </section>
+    <section class="panel"><h2>Sources, limitations, and privacy</h2>
+      <p>Representative sources include <a href="https://www.kuhes.ac.mw/bachelor-of-medicine-bachelor-of-surgery/">KUHeS MBBS</a>, <a href="https://www.must.ac.mw/programs/bsc-in-medical-microbiology/details">MUST Medical Microbiology</a>, <a href="https://www.mubas.ac.mw/programmes">MUBAS programmes</a>, <a href="https://www.unima.ac.mw/teaching/programmes-a-z">UNIMA undergraduate programmes</a>, <a href="https://www.luanar.ac.mw/students/undergraduateprograms.php">LUANAR undergraduate programmes</a>, and <a href="https://unilia.ac.mw/undergraduate/">UNILIA undergraduate programmes</a>. Eligibility criteria are in `config/admission_policy.json`; catalogue-only listings are in `config/program_catalog.json`.</p>
+      <p>Intake information differs by institution and may change. The matcher cannot assess competitive selection, recognition decisions, document authenticity, interviews, or requirements not stated in the cited pages. A result is guidance only; applicants should confirm current requirements with admissions offices. Candidate data is evaluated in the browser and is not stored.</p>
+    </section>
+  </main>
+  <footer>Albert Mkwanda · Serial 01 · <a href="https://github.com/AlbertMkwanda/university-admission-expert-system">Repository</a></footer>
+</body>
+</html>

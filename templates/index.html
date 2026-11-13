@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Get Malawi university course suggestions by discipline and check published undergraduate and postgraduate entry requirements.">
+  <title>Malawi University Course Finder and Eligibility Checker</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
+    :root{color:#173052;background:#f1f6fc;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}body{margin:0;background:linear-gradient(180deg,#e9f2fc 0,#f6f9fd 28rem,#f6f9fd 100%);min-height:100vh}main{max-width:1120px}.app-card{overflow:hidden;border:1px solid #d6e3f2;border-radius:1.5rem;background:#fff}.hero-banner{background:linear-gradient(120deg,#102f5e,#176cc1 65%,#4b9ae5);color:#fff}.hero-banner h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.04em;line-height:1.05}.hero-banner p{max-width:65ch;color:#e5f1ff}.eyebrow{font-size:.76rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#b9dcff}.notice{border-color:#b9d7f6;background:#f0f7ff;color:#18385e}.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.5rem 1rem}.field{margin:.75rem 0}label,.form-label{display:block;margin-bottom:.4rem;font-weight:700;color:#19395f}select,input,button{font:inherit}input[type=checkbox]{width:auto;margin-right:.45rem}.form-control,.form-select{border-color:#c5d5e8;border-radius:.7rem;padding:.7rem .85rem}.form-control:focus,.form-select:focus{border-color:#4b9ae5;box-shadow:0 0 0 .25rem #4b9ae533}.btn-primary{--bs-btn-bg:#145da8;--bs-btn-border-color:#145da8;--bs-btn-hover-bg:#0d4c8d;--bs-btn-hover-border-color:#0d4c8d}.btn-outline-primary{--bs-btn-color:#145da8;--bs-btn-border-color:#9bbce0;--bs-btn-hover-bg:#145da8;--bs-btn-hover-border-color:#145da8}.results{margin-top:1.5rem;padding:1rem;border:1px solid #c9def5;border-radius:1rem;background:#eff6ff}.results[hidden],.level-panel[hidden]{display:none}.error{background:#fff1f0;color:#7e2119}.result-title{font-size:1.25rem;font-weight:800}.program-result{height:100%;padding:1rem;border:1px solid #d9e6f4;border-radius:1rem;background:#fff;box-shadow:0 5px 16px #163b6410}.program-result h3{font-size:1.05rem;font-weight:750;color:#183d68}.program-result ul{padding-left:1.4rem}.status{font-weight:800}.field-note,footer{color:#60748c;font-size:.92rem}.recommendations{margin-top:1rem}.subject-row{display:grid;grid-template-columns:minmax(0,2fr) minmax(6rem,1fr) auto;gap:.5rem;align-items:center;margin:.5rem 0}.subject-row button{margin:0}.checkbox-label{display:flex;align-items:flex-start;gap:.35rem;font-weight:500}.checkbox-label input{margin-top:.35rem;flex:0 0 auto}.finder-panel{border:1px solid #d7e5f5;border-radius:1.1rem;background:linear-gradient(145deg,#f7fbff,#edf5ff)}a{color:#145da8}footer{margin-top:1.5rem}
+  </style>
+</head>
+<body>
+  <main class="container py-4 py-lg-5">
+    <section class="app-card shadow-lg p-3 p-md-5" aria-labelledby="page-title">
+      <header class="hero-banner rounded-4 p-4 p-md-5 mb-4">
+        <p class="eyebrow">Malawi · university admissions</p>
+        <h1 id="page-title">University Admission Expert System</h1>
+        <p class="mb-0">Choose a discipline or faculty to get course suggestions and see which universities offer them. You can then check your profile against published entry rules where available.</p>
+      </header>
+      <p class="alert alert-info notice"><strong>Guidance only:</strong> This is not an admission decision. Confirm current requirements, accreditation, selection, and open intakes with each institution.</p>
+
+      <section class="finder-panel p-3 p-md-4 my-4" aria-labelledby="finder-title">
+        <div class="row g-3 align-items-end">
+          <div class="col-12 col-md-7">
+            <label for="discipline-select" class="form-label">What do you want to study?</label>
+            <select id="discipline-select" class="form-select" required>
+              <option value="">Choose a discipline or faculty</option>
+              {% for discipline in disciplines %}
+              <option value="{{ discipline }}">{{ discipline }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-12 col-md-5">
+            <label for="recommendation-level" class="form-label">Degree level</label>
+            <select id="recommendation-level" class="form-select">
+              <option value="all">Undergraduate and postgraduate</option>
+              <option value="undergraduate">Undergraduate</option>
+              <option value="postgraduate">Master's and postgraduate</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-4">
+          <div>
+            <h2 id="finder-title" class="h4 mb-1">Suggested courses and universities</h2>
+            <p id="recommendation-count" class="field-note mb-0" aria-live="polite">Choose a discipline to see matching courses.</p>
+          </div>
+          <span class="badge rounded-pill text-bg-primary-subtle text-primary-emphasis">Source-linked listings</span>
+        </div>
+        <div id="recommendations" class="row g-3 recommendations"></div>
+        <button id="recommendations-more" type="button" class="btn btn-outline-primary mt-3" hidden>Show more suggestions</button>
+        {% if policy.additional_institutions %}
+        <aside class="mt-4" aria-label="Institution catalogue availability">
+          {% for institution in policy.additional_institutions %}
+          <div class="alert alert-primary mb-0">
+            <strong>{{ institution.name }}:</strong> {{ institution.note }}
+            <a href="{{ institution.catalogue_url }}" target="_blank" rel="noopener noreferrer">Visit official site</a>
+          </div>
+          {% endfor %}
+        </aside>
+        {% endif %}
+      </section>
+
+      <form id="admission-form" class="pt-3 border-top">
+        <h2 class="h3 mb-3">Check entry eligibility</h2>
+        <p class="field-note">Select a discipline above first. The checker only makes eligibility comparisons for programmes with published rules verified in this project.</p>
+        <div class="field">
+          <label for="level" class="form-label">Applicant level</label>
+          <select id="level" class="form-select" required>
+            <option value="undergraduate">Undergraduate · MSCE</option>
+            <option value="postgraduate">Master's · GPA and degree profile</option>
+          </select>
+        </div>
+
+        <section id="undergraduate-panel" class="level-panel" aria-labelledby="undergraduate-title">
+          <h2 id="undergraduate-title">MSCE results</h2>
+          <p>Enter all results from your certificate. Use grades 1–9, where 1 is best; grades 1–6 are treated as credits. Some programmes require stronger scores in specific subjects.</p>
+          <div id="subject-results" aria-live="polite"></div>
+          <button type="button" class="btn btn-outline-primary btn-sm" id="add-subject">Add subject</button>
+          <label class="checkbox-label">
+            <input id="results-complete" type="checkbox">
+            I have entered all MSCE results shown on my certificate.
+          </label>
+        </section>
+
+        <section id="postgraduate-panel" class="level-panel" aria-labelledby="postgraduate-title" hidden>
+          <h2 id="postgraduate-title">Postgraduate profile</h2>
+          <p>{{ policy.postgraduate.note }}</p>
+          <div class="fields">
+            <div class="field">
+              <label for="gpa">GPA on your institution's 5.0 scale</label>
+              <input id="gpa" class="form-control" type="number" min="0" max="5" step="0.01" value="0" required>
+            </div>
+            <div class="field">
+              <label for="degree-type">Highest qualification type</label>
+              <select id="degree-type" class="form-select" required>
+                <option value="none">No completed bachelor's/professional qualification</option>
+                <option value="bachelor">Bachelor's degree</option>
+                <option value="honours">Honours bachelor's degree</option>
+                <option value="professional">Professional qualification</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="degree-classification">Awarded degree classification</label>
+              <select id="degree-classification" class="form-select" required>
+                <option value="unknown">Not known / not classified</option>
+                <option value="credit">Credit</option>
+                <option value="strong_pass">Strong pass</option>
+                <option value="first_class">First class</option>
+                <option value="second_class">Second class</option>
+                <option value="third_class">Third class</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="degree-recognized">Is the awarding institution recognized/accredited?</label>
+              <select id="degree-recognized" class="form-select" required>
+                <option value="">Not sure</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="post-qualification-work-years">Work experience after your qualification (years)</label>
+              <input id="post-qualification-work-years" class="form-control" type="number" min="0" max="60" step="0.5" value="0" required>
+            </div>
+            <div class="field">
+              <label for="capstone">Did your degree include a capstone project?</label>
+              <select id="capstone" class="form-select" required>
+                <option value="">Not sure</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="professional-accepted">Has the institution confirmed your professional qualification is accepted/equivalent?</label>
+              <select id="professional-accepted" class="form-select" required>
+                <option value="">Not sure</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+          </div>
+          <h3>Programme-specific experience and relevance</h3>
+          <p class="field-note">These answers can differ by programme. Your institution makes the final determination of relevant qualifications and experience.</p>
+          {% for program in postgraduate_profiles %}
+          <fieldset class="program-profile" data-program-id="{{ program.id }}">
+            <legend>{{ program.name }}</legend>
+            {% if program.needs_degree_relevance %}
+            <div class="field">
+              <label for="degree-relevant-{{ program.id }}">Is your degree relevant to this programme?</label>
+              <select id="degree-relevant-{{ program.id }}" class="form-select degree-relevance" required>
+                <option value="">Not sure</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+            {% endif %}
+            {% if program.needs_relevant_work %}
+            <div class="field">
+              <label for="relevant-work-{{ program.id }}">Relevant work experience for this programme (years)</label>
+              <input id="relevant-work-{{ program.id }}" class="form-control relevant-work" type="number" min="0" max="60" step="0.5">
+            </div>
+            {% endif %}
+          </fieldset>
+          {% endfor %}
+          <p class="field-note">Degree classification, accreditation, and professional equivalency may also require institutional verification. GPA does not replace these criteria.</p>
+        </section>
+
+        <button type="submit" class="btn btn-primary btn-lg">Check eligibility for this discipline</button>
+      </form>
+
+      <section id="results" class="results" aria-live="polite" hidden>
+        <p class="result-title" id="decision"></p>
+        <p id="result-summary"></p>
+        <div id="program-results"></div>
+        <p id="disclaimer"></p>
+      </section>
+      <footer>
+        Course suggestions are grouped by discipline and show their source institution. Eligibility checks run locally in the browser; no candidate data is stored or sent to the API.
+      </footer>
+    </section>
+  </main>
+  <script>
+    const policy={{ policy|tojson }};
+    const disclaimer={{ disclaimer|tojson }};
+    const form=document.querySelector("#admission-form");
+    const level=document.querySelector("#level");
+    const disciplineSelect=document.querySelector("#discipline-select");
+    const recommendationLevel=document.querySelector("#recommendation-level");
+    const results=document.querySelector("#results");
+    const subjectRows=document.querySelector("#subject-results");
+    const recommendations=document.querySelector("#recommendations");
+    const recommendationCount=document.querySelector("#recommendation-count");
+    const recommendationsMore=document.querySelector("#recommendations-more");
+    const subjectOptions=policy.msce.subjects;
+    const gradeOptions=Array.from({length:policy.msce.maximum_grade},(_,index)=>index+1);
+    let recommendationLimit=24;
+
+    function addSubjectRow(){
+      if(subjectRows.children.length>=subjectOptions.length)return;
+      const row=document.createElement("div");
+      row.className="subject-row";
+      const subject=document.createElement("select");
+      subject.className="form-select";
+      subject.setAttribute("aria-label","MSCE subject");
+      subject.innerHTML='<option value="">Select subject</option>';
+      subjectOptions.forEach(name=>{
+        const option=document.createElement("option");
+        option.value=name;option.textContent=name;subject.append(option);
+      });
+      const grade=document.createElement("select");
+      grade.className="form-select";
+      grade.setAttribute("aria-label","MSCE grade");
+      grade.innerHTML='<option value="">Grade</option>';
+      gradeOptions.forEach(value=>{
+        const option=document.createElement("option");
+        option.value=String(value);option.textContent=String(value);grade.append(option);
+      });
+      const remove=document.createElement("button");
+      remove.type="button";remove.className="btn btn-outline-primary btn-sm";remove.textContent="Remove";
+      remove.addEventListener("click",()=>row.remove());
+      row.append(subject,grade,remove);subjectRows.append(row);
+    }
+
+    function setLevel(){
+      const undergraduate=level.value==="undergraduate";
+      document.querySelector("#undergraduate-panel").hidden=!undergraduate;
+      document.querySelector("#postgraduate-panel").hidden=undergraduate;
+      document.querySelectorAll("#undergraduate-panel input,#undergraduate-panel select").forEach(control=>control.disabled=!undergraduate);
+      document.querySelectorAll("#postgraduate-panel input,#postgraduate-panel select").forEach(control=>control.disabled=undergraduate);
+      results.hidden=true;
+    }
+
+    function evaluateUndergraduate(program,candidate){
+      const rules=program.requirements;
+      const grades=candidate.msce_results;
+      const complete=candidate.results_complete;
+      const creditMax=policy.msce.credit_grade_maximum;
+      const creditCount=Object.values(grades).filter(grade=>grade<=creditMax).length;
+      const checks=[{
+        rule:"minimum_credits",
+        passed:creditCount>=rules.minimum_credits?true:(complete?false:null),
+        message:`${creditCount} credit(s) entered; ${rules.minimum_credits} required (grades ${creditMax} or better).`
+      }];
+      const missingValue=(condition)=>condition===null?(complete?false:null):condition;
+      (rules.required_credit_subjects||[]).forEach(subject=>{
+        const grade=Object.prototype.hasOwnProperty.call(grades,subject)?grades[subject]:null;
+        checks.push({
+          rule:`required_credit:${subject}`,
+          passed:missingValue(grade===null?null:grade<=creditMax),
+          message:`${subject}: requires a credit (grade ${creditMax} or better); recorded ${grade===null?"not entered":grade}.`
+        });
+      });
+      Object.entries(rules.required_subject_grade_maximum||{}).forEach(([subject,maximum])=>{
+        const grade=Object.prototype.hasOwnProperty.call(grades,subject)?grades[subject]:null;
+        checks.push({
+          rule:`subject_grade:${subject}`,
+          passed:missingValue(grade===null?null:grade<=maximum),
+          message:`${subject}: requires grade ${maximum} or better; recorded ${grade===null?"not entered":grade}.`
+        });
+      });
+      const alternatives=rules.one_of_credit_subject_groups||[];
+      if(alternatives.length){
+        const maximum=rules.one_of_subject_grade_maximum||creditMax;
+        const groupResults=alternatives.map(group=>{
+          const scores=group.map(subject=>Object.prototype.hasOwnProperty.call(grades,subject)?grades[subject]:null);
+          if(scores.every(grade=>grade!==null&&grade<=maximum))return true;
+          if(!complete&&scores.some(grade=>grade===null))return null;
+          return false;
+        });
+        const passed=groupResults.includes(true)?true:groupResults.includes(null)?null:false;
+        const choices=alternatives.map(group=>group.join(" + ")).join(" or ");
+        checks.push({
+          rule:"one_of_credit_subject_groups",
+          passed,
+          message:`At least one listed subject combination needs grades ${maximum} or better: ${choices}.`
+        });
+      }
+      const decision=checks.some(check=>check.passed===false)?"not_eligible":checks.some(check=>check.passed===null)?"needs_information":"eligible";
+      return {...programResult(program),decision,eligible:decision==="eligible",credit_count:creditCount,checks};
+    }
+
+    function evaluatePostgraduate(program,candidate){
+      const profile={
+        ...candidate,
+        degree_relevant:candidate.degree_relevance_by_program[program.id]??null,
+        relevant_work_years:candidate.relevant_work_years_by_program[program.id]??null
+      };
+      const paths=program.paths.map(path=>{
+        const checks=path.conditions.map(condition=>{
+          const actual=profile[condition.field];
+          let passed=null;
+          if(actual!==null&&!(condition.field==="degree_classification"&&actual==="unknown")){
+            if(condition.operator==="equals")passed=actual===condition.value;
+            else if(condition.operator==="in")passed=condition.value.includes(actual);
+            else passed=actual>=condition.value;
+          }
+          return {rule:condition.field,passed,message:condition.label};
+        });
+        const decision=checks.some(check=>check.passed===false)?"not_eligible":checks.some(check=>check.passed===null)?"needs_information":"eligible";
+        return {path:path.label,decision,checks};
+      });
+      const decision=paths.some(path=>path.decision==="eligible")?"eligible":paths.some(path=>path.decision==="needs_information")?"needs_information":"not_eligible";
+      return {...programResult(program),decision,eligible:decision==="eligible",paths};
+    }
+
+    function programResult(program){
+      return {
+        id:program.id,name:program.name,institution:program.institution,field:program.field,
+        school:program.school,intake:program.intake||"Not stated",source_url:program.source_url,
+        intake_source_url:program.intake_source_url,advisory:program.advisory||[]
+      };
+    }
+
+    function readPostgraduateCandidate(){
+      const triState=id=>document.querySelector(id).value===""?null:document.querySelector(id).value==="true";
+      const degreeRelevanceByProgram={};
+      const relevantWorkYearsByProgram={};
+      document.querySelectorAll(".program-profile").forEach(profile=>{
+        const id=profile.dataset.programId;
+        const relevance=profile.querySelector(".degree-relevance");
+        const experience=profile.querySelector(".relevant-work");
+        if(relevance)degreeRelevanceByProgram[id]=relevance.value===""?null:relevance.value==="true";
+        if(experience)relevantWorkYearsByProgram[id]=experience.value===""?null:Number(experience.value);
+      });
+      return {
+        level:"postgraduate",
+        discipline:disciplineSelect.value,
+        gpa_5:Number(document.querySelector("#gpa").value),
+        degree_type:document.querySelector("#degree-type").value,
+        degree_classification:document.querySelector("#degree-classification").value,
+        degree_relevance_by_program:degreeRelevanceByProgram,
+        degree_recognized:triState("#degree-recognized"),
+        relevant_work_years_by_program:relevantWorkYearsByProgram,
+        post_qualification_work_years:Number(document.querySelector("#post-qualification-work-years").value),
+        capstone_completed:triState("#capstone"),
+        professional_qualification_accepted:triState("#professional-accepted")
+      };
+    }
+
+    function statusText(decision){
+      if(decision==="eligible")return "Meets the published minimum requirements";
+      if(decision==="not_eligible")return "Does not meet the published minimum requirements";
+      return "More information is needed";
+    }
+
+    function renderPrograms(programs,levelValue){
+      const container=document.querySelector("#program-results");
+      container.replaceChildren();
+      programs.forEach(program=>{
+        const article=document.createElement("article");
+        article.className="program-result";
+        const heading=document.createElement("h3");heading.textContent=program.name;
+        const institution=document.createElement("p");institution.textContent=`${program.institution} · ${program.field}${program.school?` · ${program.school}`:""} · Intake: ${program.intake}`;
+        const status=document.createElement("p");status.className="status";status.textContent=statusText(program.decision);
+        if(program.rules_status==="unavailable"){
+          const note=document.createElement("p");
+          note.className="field-note";
+          note.textContent=program.message;
+          article.append(heading,institution,status,note);
+          const source=document.createElement("p");
+          const link=document.createElement("a");
+          link.href=program.catalogue_source_url||program.source_url;
+          link.target="_blank";link.rel="noopener noreferrer";link.textContent="Official programme catalogue";
+          source.append(link);article.append(source);container.append(article);
+          return;
+        }
+        const checks=document.createElement("ul");
+        const checkGroups=levelValue==="undergraduate"?[{path:"Programme requirements",checks:program.checks}]:program.paths;
+        checkGroups.forEach(group=>{
+          const pathHeading=document.createElement("li");
+          pathHeading.textContent=group.path;
+          const nested=document.createElement("ul");
+          group.checks.forEach(check=>{
+            const item=document.createElement("li");
+            item.textContent=`${check.passed===true?"MET":check.passed===false?"NOT MET":"NEEDS INPUT"} — ${check.message}`;
+            nested.append(item);
+          });
+          pathHeading.append(nested);checks.append(pathHeading);
+        });
+        article.append(heading,institution,status,checks);
+        (program.advisory||[]).forEach(text=>{const note=document.createElement("p");note.className="field-note";note.textContent=text;article.append(note)});
+        const source=document.createElement("p");
+        const programLink=document.createElement("a");programLink.href=program.source_url;programLink.target="_blank";programLink.rel="noopener noreferrer";programLink.textContent="Programme requirements source";
+        source.append(programLink);
+        if(program.intake_source_url){
+          source.append(document.createTextNode(" · "));
+          const intakeLink=document.createElement("a");intakeLink.href=program.intake_source_url;intakeLink.target="_blank";intakeLink.rel="noopener noreferrer";intakeLink.textContent="intake source";
+          source.append(intakeLink);
+        }
+        article.append(source);container.append(article);
+      });
+    }
+
+    function renderRecommendations(){
+      const discipline=disciplineSelect.value;
+      recommendations.replaceChildren();
+      if(!discipline){
+        recommendationCount.textContent="Choose a discipline to see matching courses.";
+        recommendationsMore.hidden=true;
+        return;
+      }
+      const selectedLevel=recommendationLevel.value;
+      const matches=policy.programs
+        .filter(program=>program.discipline===discipline&&(selectedLevel==="all"||program.level===selectedLevel))
+        .sort((a,b)=>
+          Number(a.rules_status==="unavailable")-Number(b.rules_status==="unavailable")||
+          a.institution.localeCompare(b.institution)||a.name.localeCompare(b.name)
+        );
+      const visible=matches.slice(0,recommendationLimit);
+      visible.forEach(program=>{
+        const column=document.createElement("div");
+        column.className="col-12 col-md-6";
+        const article=document.createElement("article");
+        article.className="program-result";
+        const heading=document.createElement("h3");heading.textContent=program.name;
+        const institution=document.createElement("p");
+        institution.className="mb-1 fw-semibold";
+        institution.textContent=program.institution;
+        const details=document.createElement("p");
+        details.className="field-note mb-2";
+        details.textContent=`${program.school?`${program.school} · `:""}${program.level==="undergraduate"?"Undergraduate":"Master's / postgraduate"}`;
+        const badge=document.createElement("span");
+        badge.className=`badge ${program.rules_status==="unavailable"?"text-bg-secondary":"text-bg-primary"}`;
+        badge.textContent=program.rules_status==="unavailable"?"Entry rules not verified":"Eligibility check available";
+        const source=document.createElement("p");
+        source.className="mt-3 mb-0";
+        const link=document.createElement("a");
+        link.href=program.catalogue_source_url||program.source_url;
+        link.target="_blank";link.rel="noopener noreferrer";
+        link.textContent="View official course source";
+        source.append(link);
+        article.append(heading,institution,details,badge,source);
+        column.append(article);
+        recommendations.append(column);
+      });
+      recommendationCount.textContent=matches.length
+        ?`Showing ${visible.length} of ${matches.length} suggestions for ${discipline}.`
+        :`No courses are currently listed for ${discipline} at this degree level.`;
+      recommendationsMore.hidden=visible.length>=matches.length;
+    }
+
+    document.querySelector("#add-subject").addEventListener("click",addSubjectRow);
+    level.addEventListener("change",setLevel);
+    disciplineSelect.addEventListener("change",()=>{recommendationLimit=24;renderRecommendations();results.hidden=true});
+    recommendationLevel.addEventListener("change",()=>{recommendationLimit=24;renderRecommendations()});
+    recommendationsMore.addEventListener("click",()=>{recommendationLimit+=24;renderRecommendations()});
+    addSubjectRow();setLevel();
+    renderRecommendations();
+
+    form.addEventListener("submit",event=>{
+      event.preventDefault();
+      let candidate;
+      try{
+        if(!disciplineSelect.value)throw new Error("Choose a discipline or faculty first.");
+        if(level.value==="undergraduate"){
+          const grades={};
+          for(const row of subjectRows.children){
+            const subject=row.children[0].value;
+            const grade=row.children[1].value;
+            if(!subject&&!grade)continue;
+            if(!subject||!grade)throw new Error("Complete or remove each MSCE subject row.");
+            if(Object.prototype.hasOwnProperty.call(grades,subject))throw new Error(`Enter ${subject} only once.`);
+            grades[subject]=Number(grade);
+          }
+          candidate={level:"undergraduate",discipline:disciplineSelect.value,msce_results:grades,results_complete:document.querySelector("#results-complete").checked};
+        }else{
+          candidate=readPostgraduateCandidate();
+        }
+        const programs=policy.programs.filter(program=>program.level===candidate.level&&program.discipline===candidate.discipline&&program.rules_status!=="unavailable").map(program=>
+          candidate.level==="undergraduate"?evaluateUndergraduate(program,candidate):evaluatePostgraduate(program,candidate)
+        );
+        const decision=programs.some(program=>program.decision==="eligible")?"eligible":programs.some(program=>program.decision==="needs_information")||programs.length===0?"needs_information":"not_eligible";
+        results.hidden=false;results.classList.remove("error");
+        const unverifiedCount=policy.programs.filter(program=>program.level===candidate.level&&program.discipline===candidate.discipline&&program.rules_status==="unavailable").length;
+        const eligibleCount=programs.filter(program=>program.decision==="eligible").length;
+        document.querySelector("#decision").textContent=!programs.length
+          ?"No verified eligibility rules are available for this discipline and level."
+          :decision==="not_eligible"&&unverifiedCount
+            ?"Does not meet the published minimums for programmes with verified rules."
+            :statusText(decision);
+        document.querySelector("#result-summary").textContent=programs.length
+          ?`${eligibleCount} of ${programs.length} ${candidate.discipline} programmes with verified rules meet the requirements that can be assessed.${unverifiedCount?` ${unverifiedCount} additional course listings have no verified eligibility rules and were not assessed.`:""}`
+          :`${unverifiedCount?`${unverifiedCount} course listings are available`:"No course listings are available"} for ${candidate.discipline}, but their entry rules are not verified in this checker.`;
+        renderPrograms(programs,candidate.level);
+        document.querySelector("#disclaimer").textContent=candidate.level==="postgraduate"?`${policy.postgraduate.note} ${disclaimer}`:disclaimer;
+      }catch(error){
+        results.hidden=false;results.classList.add("error");
+        document.querySelector("#decision").textContent=`Unable to evaluate this profile: ${error.message}`;
+        document.querySelector("#result-summary").textContent="";
+        document.querySelector("#program-results").replaceChildren();
+        document.querySelector("#disclaimer").textContent="";
+      }
+    });
+  </script>
+</body>
+</html>

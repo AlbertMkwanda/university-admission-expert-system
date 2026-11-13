@@ -1,0 +1,511 @@
+{
+  "policy_name": "Malawi University Programme Eligibility Guide",
+  "version": "2026.1",
+  "intake_note": "Intake dates differ by institution. Each programme identifies the latest cycle source located; confirm that applications are open before applying.",
+  "msce": {
+    "minimum_grade": 1,
+    "maximum_grade": 9,
+    "credit_grade_maximum": 6,
+    "subjects": [
+      "English",
+      "Mathematics",
+      "Biology",
+      "Physical Science",
+      "General Science",
+      "Physics",
+      "Chemistry",
+      "Computer Studies",
+      "Agriculture",
+      "Accounting",
+      "Business Studies",
+      "Economics",
+      "Geography",
+      "History",
+      "Chichewa",
+      "Bible Knowledge",
+      "Social Studies",
+      "Life Skills"
+    ]
+  },
+  "postgraduate": {
+    "gpa_minimum": 0.0,
+    "gpa_maximum": 5.0,
+    "note": "GPA is collected for context only. Listed institutions do not publish a common conversion to a 5.0 GPA scale; programme-specific degree classifications and experience rules are evaluated instead."
+  },
+  "programs": [
+    {
+      "id": "kuhes-mbbs",
+      "name": "Bachelor of Medicine Bachelor of Surgery (MBBS)",
+      "institution": "Kamuzu University of Health Sciences (KUHeS)",
+      "level": "undergraduate",
+      "field": "Medicine",
+      "school": "School of Medicine and Oral Health",
+      "intake": "2025/26 latest call located; current intake not confirmed",
+      "source_url": "https://www.kuhes.ac.mw/bachelor-of-medicine-bachelor-of-surgery/",
+      "intake_source_url": "https://www.kuhes.ac.mw/wp-content/uploads/2025/10/Economic-fee-paying-advert-2025-2026-academic-year-Updated-15-10-2025.pdf",
+      "requirements": {
+        "minimum_credits": 6,
+        "required_credit_subjects": ["English"],
+        "required_subject_grade_maximum": {
+          "Mathematics": 3,
+          "Biology": 3,
+          "Physics": 3
+        },
+        "one_of_credit_subject_groups": [
+          ["Chemistry"],
+          ["General Science"]
+        ],
+        "one_of_subject_grade_maximum": 3,
+        "note": "The programme page says a minimum of 3 points in the named science subjects. Since lower MSCE grades are better, the checker interprets this as grade 3 or better."
+      }
+    },
+    {
+      "id": "must-medical-microbiology",
+      "name": "BSc in Medical Microbiology",
+      "institution": "Malawi University of Science and Technology (MUST)",
+      "level": "undergraduate",
+      "field": "Medicine",
+      "school": "Academy of Medical Sciences",
+      "intake": "Current programme page; intake year not stated",
+      "source_url": "https://www.must.ac.mw/programs/bsc-in-medical-microbiology/details",
+      "intake_source_url": "https://www.must.ac.mw/students/admission-requirements",
+      "requirements": {
+        "minimum_credits": 6,
+        "required_credit_subjects": ["English"],
+        "required_subject_grade_maximum": {
+          "Physics": 4,
+          "Chemistry": 4,
+          "Biology": 4,
+          "Mathematics": 4
+        }
+      }
+    },
+    {
+      "id": "mubas-information-technology",
+      "name": "Bachelor of Science in Information Technology",
+      "institution": "Malawi University of Business and Applied Sciences (MUBAS)",
+      "level": "undergraduate",
+      "field": "IT",
+      "school": "School of Science and Technology",
+      "intake": "2026/27",
+      "source_url": "https://www.mubas.ac.mw/programmes/bachelor-of-science-in-information-technology",
+      "intake_source_url": "https://www.mubas.ac.mw/announcements/20262027-undergraduate-admissions-for-face-to-face-and-open-distance-and-e-learning-odel-programmes",
+      "requirements": {
+        "minimum_credits": 6,
+        "required_credit_subjects": ["English", "Mathematics", "Biology"],
+        "one_of_credit_subject_groups": [
+          ["Physical Science"],
+          ["General Science"],
+          ["Chemistry", "Physics"]
+        ]
+      }
+    },
+    {
+      "id": "must-business-information-technology",
+      "name": "BSc in Business Information Technology",
+      "institution": "Malawi University of Science and Technology (MUST)",
+      "level": "undergraduate",
+      "field": "IT",
+      "school": "Malawi Institute of Technology",
+      "intake": "Current programme page; intake year not stated",
+      "source_url": "https://www.must.ac.mw/programs/bsc-in-business-information-technology/details",
+      "intake_source_url": "https://www.must.ac.mw/students/admission-requirements",
+      "requirements": {
+        "minimum_credits": 6,
+        "required_credit_subjects": ["English", "Biology", "Physics", "Mathematics"],
+        "one_of_credit_subject_groups": [
+          ["Chemistry"],
+          ["Physical Science"]
+        ]
+      }
+    },
+    {
+      "id": "mubas-bcom-banking-finance",
+      "name": "Bachelor of Commerce (Banking and Finance)",
+      "institution": "Malawi University of Business and Applied Sciences (MUBAS)",
+      "level": "undergraduate",
+      "field": "Commerce",
+      "school": "School of Business and Economic Sciences",
+      "intake": "2026/27",
+      "source_url": "https://www.mubas.ac.mw/programmes/bachelor-of-commerce-banking-and-finance",
+      "intake_source_url": "https://www.mubas.ac.mw/announcements/20262027-undergraduate-admissions-for-face-to-face-and-open-distance-and-e-learning-odel-programmes",
+      "requirements": {
+        "minimum_credits": 6,
+        "required_credit_subjects": ["English", "Mathematics"]
+      }
+    },
+    {
+      "id": "must-biomedical-engineering",
+      "name": "BEng in Biomedical Engineering (Honours)",
+      "institution": "Malawi University of Science and Technology (MUST)",
+      "level": "undergraduate",
+      "field": "Engineering",
+      "school": "Malawi Institute of Technology",
+      "intake": "Current programme page; intake year not stated",
+      "source_url": "https://www.must.ac.mw/programs/beng-in-biomedical-engineering-honours/details",
+      "intake_source_url": "https://www.must.ac.mw/students/admission-requirements",
+      "requirements": {
+        "minimum_credits": 6,
+        "required_credit_subjects": [
+          "English",
+          "Biology",
+          "Physics",
+          "Mathematics"
+        ],
+        "required_subject_grade_maximum": {
+          "English": 4,
+          "Biology": 4,
+          "Physics": 4,
+          "Mathematics": 4
+        },
+        "one_of_credit_subject_groups": [
+          ["Chemistry"],
+          ["Physical Science"]
+        ],
+        "one_of_subject_grade_maximum": 4
+      }
+    },
+    {
+      "id": "kuhes-master-public-health",
+      "name": "Master of Public Health (MPH)",
+      "institution": "Kamuzu University of Health Sciences (KUHeS)",
+      "level": "postgraduate",
+      "field": "Medicine",
+      "school": "School of Global and Public Health",
+      "intake": "2026/27 selection published; programme page gives ongoing application guidance",
+      "source_url": "https://www.kuhes.ac.mw/master-of-public-health/",
+      "intake_source_url": "https://www.kuhes.ac.mw/press-release-2/",
+      "paths": [
+        {
+          "label": "Relevant first degree and experience",
+          "conditions": [
+            {
+              "field": "degree_type",
+              "operator": "in",
+              "value": ["bachelor", "honours"],
+              "label": "A first degree is held"
+            },
+            {
+              "field": "degree_relevant",
+              "operator": "equals",
+              "value": true,
+              "label": "The first degree is in a relevant field"
+            },
+            {
+              "field": "degree_recognized",
+              "operator": "equals",
+              "value": true,
+              "label": "The awarding institution is NCHE-accredited"
+            },
+            {
+              "field": "relevant_work_years",
+              "operator": "minimum",
+              "value": 2,
+              "label": "At least two years of relevant work experience"
+            }
+          ]
+        }
+      ],
+      "advisory": [
+        "Research experience or scientific publications are desirable, not stated as a minimum requirement.",
+        "Potential candidates may be invited for an oral interview."
+      ]
+    },
+    {
+      "id": "mubas-mba",
+      "name": "Master of Business Administration (MBA)",
+      "institution": "Malawi University of Business and Applied Sciences (MUBAS)",
+      "level": "postgraduate",
+      "field": "Commerce",
+      "school": "School of Business and Economic Sciences",
+      "intake": "March 2027",
+      "source_url": "https://www.mubas.ac.mw/programmes/master-of-business-administration-mba",
+      "intake_source_url": "https://www.mubas.ac.mw/announcements/call-for-applications-postgraduate-programmes-march-2027-intake",
+      "paths": [
+        {
+          "label": "Bachelor's degree route",
+          "conditions": [
+            {
+              "field": "degree_type",
+              "operator": "in",
+              "value": ["bachelor", "honours"],
+              "label": "A bachelor's degree is held"
+            },
+            {
+              "field": "degree_recognized",
+              "operator": "equals",
+              "value": true,
+              "label": "The awarding institution is accredited"
+            },
+            {
+              "field": "post_qualification_work_years",
+              "operator": "minimum",
+              "value": 1,
+              "label": "At least one year of work experience after the qualification"
+            }
+          ]
+        },
+        {
+          "label": "Professional qualification route",
+          "conditions": [
+            {
+              "field": "degree_type",
+              "operator": "equals",
+              "value": "professional",
+              "label": "A listed or relevant professional qualification is held"
+            },
+            {
+              "field": "professional_qualification_accepted",
+              "operator": "equals",
+              "value": true,
+              "label": "The qualification is accepted by MUBAS"
+            },
+            {
+              "field": "post_qualification_work_years",
+              "operator": "minimum",
+              "value": 1,
+              "label": "At least one year of work experience after the qualification"
+            }
+          ]
+        }
+      ],
+      "advisory": [
+        "The programme page lists ACCA, CIMA, CA(M), CFA and CIPS as examples of relevant professional qualifications."
+      ]
+    },
+    {
+      "id": "mubas-mphil-information-technology",
+      "name": "Master of Philosophy in Information Technology",
+      "institution": "Malawi University of Business and Applied Sciences (MUBAS)",
+      "level": "postgraduate",
+      "field": "IT",
+      "school": "School of Science and Technology",
+      "intake": "March 2027",
+      "source_url": "https://www.mubas.ac.mw/programmes/master-of-philosophy-in-information-technology",
+      "intake_source_url": "https://www.mubas.ac.mw/announcements/call-for-applications-postgraduate-programmes-march-2027-intake",
+      "paths": [
+        {
+          "label": "Relevant bachelor's degree with a credit",
+          "conditions": [
+            {
+              "field": "degree_type",
+              "operator": "equals",
+              "value": "bachelor",
+              "label": "A bachelor's degree is held"
+            },
+            {
+              "field": "degree_relevant",
+              "operator": "equals",
+              "value": true,
+              "label": "The degree is in a relevant field"
+            },
+            {
+              "field": "degree_recognized",
+              "operator": "equals",
+              "value": true,
+              "label": "The awarding institution is accredited"
+            },
+            {
+              "field": "degree_classification",
+              "operator": "in",
+              "value": ["credit"],
+              "label": "The bachelor's result is at least a credit"
+            }
+          ]
+        },
+        {
+          "label": "Strong pass bachelor's degree with two years' experience",
+          "conditions": [
+            {
+              "field": "degree_type",
+              "operator": "equals",
+              "value": "bachelor",
+              "label": "A bachelor's degree is held"
+            },
+            {
+              "field": "degree_relevant",
+              "operator": "equals",
+              "value": true,
+              "label": "The degree is in a relevant field"
+            },
+            {
+              "field": "degree_recognized",
+              "operator": "equals",
+              "value": true,
+              "label": "The awarding institution is accredited"
+            },
+            {
+              "field": "degree_classification",
+              "operator": "in",
+              "value": ["strong_pass"],
+              "label": "The bachelor's result is a strong pass"
+            },
+            {
+              "field": "relevant_work_years",
+              "operator": "minimum",
+              "value": 2,
+              "label": "At least two years of relevant work experience"
+            }
+          ]
+        },
+        {
+          "label": "Honours degree with at least second class",
+          "conditions": [
+            {
+              "field": "degree_type",
+              "operator": "equals",
+              "value": "honours",
+              "label": "An honours degree is held"
+            },
+            {
+              "field": "degree_relevant",
+              "operator": "equals",
+              "value": true,
+              "label": "The degree is in a relevant field"
+            },
+            {
+              "field": "degree_recognized",
+              "operator": "equals",
+              "value": true,
+              "label": "The awarding institution is accredited"
+            },
+            {
+              "field": "degree_classification",
+              "operator": "in",
+              "value": ["first_class", "second_class"],
+              "label": "The honours result is at least second class"
+            }
+          ]
+        },
+        {
+          "label": "Honours degree with third class and one year's experience",
+          "conditions": [
+            {
+              "field": "degree_type",
+              "operator": "equals",
+              "value": "honours",
+              "label": "An honours degree is held"
+            },
+            {
+              "field": "degree_relevant",
+              "operator": "equals",
+              "value": true,
+              "label": "The degree is in a relevant field"
+            },
+            {
+              "field": "degree_recognized",
+              "operator": "equals",
+              "value": true,
+              "label": "The awarding institution is accredited"
+            },
+            {
+              "field": "degree_classification",
+              "operator": "in",
+              "value": ["third_class"],
+              "label": "The honours result is third class"
+            },
+            {
+              "field": "relevant_work_years",
+              "operator": "minimum",
+              "value": 1,
+              "label": "At least one year of relevant work experience"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mubas-msc-electrical-engineering",
+      "name": "Master of Science in Electrical and Electronics Engineering",
+      "institution": "Malawi University of Business and Applied Sciences (MUBAS)",
+      "level": "postgraduate",
+      "field": "Engineering",
+      "school": "School of Engineering",
+      "intake": "Programme page; March 2027 call does not list this MSc",
+      "source_url": "https://www.mubas.ac.mw/programmes/master-of-science-in-electrical-and-electronics-engineering",
+      "paths": [
+        {
+          "label": "Relevant honours degree",
+          "conditions": [
+            {
+              "field": "degree_type",
+              "operator": "equals",
+              "value": "honours",
+              "label": "An honours degree is held"
+            },
+            {
+              "field": "degree_relevant",
+              "operator": "equals",
+              "value": true,
+              "label": "The degree is in electrical, telecommunications, computer engineering or an equivalent relevant field"
+            },
+            {
+              "field": "degree_recognized",
+              "operator": "equals",
+              "value": true,
+              "label": "The awarding institution is accredited"
+            }
+          ]
+        },
+        {
+          "label": "Relevant generic degree with capstone and two years' experience",
+          "conditions": [
+            {
+              "field": "degree_type",
+              "operator": "equals",
+              "value": "bachelor",
+              "label": "A generic bachelor's degree is held"
+            },
+            {
+              "field": "degree_relevant",
+              "operator": "equals",
+              "value": true,
+              "label": "The degree is in electrical, telecommunications, computer engineering or an equivalent relevant field"
+            },
+            {
+              "field": "degree_recognized",
+              "operator": "equals",
+              "value": true,
+              "label": "The awarding institution is recognized"
+            },
+            {
+              "field": "capstone_completed",
+              "operator": "equals",
+              "value": true,
+              "label": "A capstone project was completed"
+            },
+            {
+              "field": "relevant_work_years",
+              "operator": "minimum",
+              "value": 2,
+              "label": "At least two years of relevant work experience"
+            }
+          ]
+        },
+        {
+          "label": "Accepted professional qualification",
+          "conditions": [
+            {
+              "field": "degree_type",
+              "operator": "equals",
+              "value": "professional",
+              "label": "A relevant professional qualification is held"
+            },
+            {
+              "field": "degree_recognized",
+              "operator": "equals",
+              "value": true,
+              "label": "The qualification is from an accredited institution"
+            },
+            {
+              "field": "professional_qualification_accepted",
+              "operator": "equals",
+              "value": true,
+              "label": "MUBAS recognizes the qualification as equivalent to a relevant undergraduate degree"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
